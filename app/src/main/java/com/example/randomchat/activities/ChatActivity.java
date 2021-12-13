@@ -103,6 +103,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 popUp = new Dialog(ChatActivity.this);
                 chatAdapter.clear();
+                ShowPopup(room,logged_user,popUp);
             }
         });
         infoBtn.setOnClickListener(new View.OnClickListener() {
@@ -311,8 +312,8 @@ public class ChatActivity extends AppCompatActivity {
                 InitTask f = new InitTask();
                 f.execute("/getusername "+id_interlocutore,mTcpClient);
 
-            }else if(values[0].contains("/id2")){
-                id_interlocutore = values[0].substring(5);
+            }else if(values[0].contains("/interid")){
+                id_interlocutore = values[0].substring(9);
                 Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
                 toast.show();
                 InitTask f = new InitTask();
@@ -333,8 +334,9 @@ public class ChatActivity extends AppCompatActivity {
                 InitTask g = new InitTask();
                 g.execute("/getfoto "+id_interlocutore,mTcpClient);
 
-            }else if(values[0].contains("/username2")){
-                username_interlocutore = values[0].substring(11);
+
+            }else if(values[0].contains("/interusername")){
+                username_interlocutore = values[0].substring(15);
                 text_interlocutore.setText(username_interlocutore);
                 InitTask g = new InitTask();
                 g.execute("/getfoto2 "+id_interlocutore,mTcpClient);
@@ -357,8 +359,8 @@ public class ChatActivity extends AppCompatActivity {
                 h.execute("/match2 "+id_interlocutore,mTcpClient);
 
 
-            } else if(values[0].contains("/foto2")){
-                foto_interlocutore = values[0].substring(7);
+            } else if(values[0].contains("/interfoto")){
+                foto_interlocutore = values[0].substring(11);
                 RetrieveImageTask task = new RetrieveImageTask();
                 try {
                     Bitmap img = Bitmap.createScaledBitmap(task.execute(foto_interlocutore).get() , 110,110,false);
