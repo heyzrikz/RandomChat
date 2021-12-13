@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Random Chat</string>
+    <string name="msgF">{msg=false}</string>
+</resources>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.AddRoomActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_20sdp"
+        android:text="Crea la tua stanza"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/amatic_sc_bold"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <EditText
+        android:id="@+id/roomName"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/background_input"
+        android:hint="Nome della stanza"
+        android:textColor="@color/black"
+        android:textColorHint="@color/text_color_hint"
+        android:paddingStart="@dimen/_12sdp"
+        android:drawableStart="@drawable/ic_door"
+        android:drawablePadding="@dimen/_16sdp"
+        android:fontFamily="@font/roboto"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        />
+
+    <EditText
+        android:id="@+id/descriptionRoom"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/background_input"
+        android:textColor="@color/black"
+        android:hint="Descrizione"
+        android:textColorHint="@color/text_color_hint"
+        android:gravity="top"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:fontFamily="@font/roboto"
+        android:imeOptions="actionNext"
+        android:inputType="text|textMultiLine"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_130sdp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/_9sdp"
+            android:drawableTop="@drawable/ic_close"
+            android:layout_marginLeft="@dimen/_125sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@drawable/background_input"
+            android:backgroundTint="#E4E2E2"
+            android:textColor="#494848"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/creaBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:text="Crea"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:background="@drawable/background_input"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:itemBackground="@drawable/bottom_menu"
+        app:menu="@menu/bottom_menu_navigation"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
