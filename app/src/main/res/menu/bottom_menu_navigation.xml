@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/addRoom"
-        android:enabled="true"
         android:icon="@drawable/ic_add_circle"
-        android:title=" Crea Stanza"
-        android:state_selected="false"
+        android:title="@string/menu_addRoom"
         />
 
     <item
         android:id="@+id/home"
-        android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title=" Home"
-        android:state_selected="true"
+        android:title="@string/menu_home"
+
+
         />
     <item
         android:id="@+id/profile"
-        android:enabled="true"
         android:icon="@drawable/ic_person"
-        android:title=" Profilo"
-        android:state_selected="false"
+        android:title="@string/menu_profile"
+
         />
 </menu>

@@ -80,8 +80,7 @@ public class AddRoomActivity extends AppCompatActivity {
                 switch(menuitem.getItemId()){
                     case R.id.home:
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        //intent.putExtra("utente",logged_user);
+                        intent.putExtra("utente",logged_user);
                         startActivity(intent);
                         overridePendingTransition(0,0);
                         return true;

@@ -17,16 +17,19 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/circle_image.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/close.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/color_selector.xml" value="0.4036458333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/ic_person.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/popup_waitingroom.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/progress.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/rb_blue_selected.xml" value="0.4036458333333333" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/round_menu.xml" value="0.4036458333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/drawable/single_row_room.xml" value="0.4036458333333333" />
-        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_add_room.xml" value="0.3875" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_add_room.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_chat.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_main.xml" value="0.37092391304347827" />
-        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_profile.xml" value="0.3875" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_sign_in.xml" value="0.37092391304347827" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_sign_up.xml" value="0.37092391304347827" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_splash_screen.xml" value="0.3875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/activity_waiting_room.xml" value="0.3875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/container_rooms.xml" value="0.3875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/message_received_layout.xml" value="0.3875" />
@@ -34,6 +37,7 @@
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/popup.xml" value="0.3875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/room_row.xml" value="0.3875" />
         <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/layout/waitingroom_popup.xml" value="0.22" />
+        <entry key="..\:/Users/lenovo/AndroidStudioProjects/RandomChat2/app/src/main/res/menu/bottom_menu_navigation.xml" value="0.3875" />
       </map>
     </option>
   </component>

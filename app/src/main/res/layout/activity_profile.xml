@@ -78,10 +78,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:itemBackground="@drawable/bottom_menu"
+        android:background="@drawable/round_menu"
+        app:itemIconTint="@drawable/bottom_menu"
+        app:itemTextColor="@drawable/bottom_menu"
         app:menu="@menu/bottom_menu_navigation"
+        app:labelVisibilityMode="selected"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

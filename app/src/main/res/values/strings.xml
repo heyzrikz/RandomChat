@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Random Chat</string>
     <string name="msgF">{msg=false}</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_addRoom">Crea Stanza</string>
+    <string name="menu_profile">Profilo</string>
 </resources>
