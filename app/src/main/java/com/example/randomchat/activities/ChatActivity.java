@@ -194,6 +194,8 @@ public class ChatActivity extends AppCompatActivity {
         popUp.setCancelable(false);
         popUp.setCanceledOnTouchOutside(false);
         Button termina;
+        termina = popUp.findViewById(R.id.termina);
+
         InitTask b = new InitTask();
         InitTask c = new InitTask();
         InitTask d = new InitTask();
@@ -207,7 +209,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        termina = popUp.findViewById(R.id.termina);
+
+
         termina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,38 +259,6 @@ public class ChatActivity extends AppCompatActivity {
                         publishProgress(message);
                         if (message != null) {
                             System.out.println("Return Message from Socket::::: >>>>> " + message);
-                            /*if(message.contains("/match")){
-                                id_interlocutore = message.substring(7);
-                                mTcpClient.sendMessage("/match "+id_interlocutore);
-                                mTcpClient.sendMessage("/getusername");
-
-                            }else if(message.contains("/usernameinter")){
-                                username_interlocutore = message.substring(15);
-                                popUp.dismiss();
-                                text_interlocutore.setText(username_interlocutore);
-                            }else if(message.contains("/bye")){
-                            mTcpClient.sendMessage("/q");
-                            chatAdapter.clear();
-                            text_interlocutore.setText("");
-
-
-                            }else{
-                                System.out.printf("messaggio ricevuto: "+message);
-                            int count = chatMessages.size();
-                            ChatMessage chatMessage = new ChatMessage();
-                            chatMessage.senderId = username_interlocutore;
-                            chatMessage.message = message;
-                            chatMessages.add(chatMessage);
-                            if(count == 0){
-                            chatAdapter.notifyDataSetChanged();
-                            }else{
-                            chatAdapter.notifyItemRangeInserted(chatMessages.size(),chatMessages.size());
-                            recyclerChat.smoothScrollToPosition(chatMessages.size() - 1);
-                            }
-                            recyclerChat.setVisibility(View.VISIBLE);
-                            }*/
-
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -307,15 +278,23 @@ public class ChatActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
             if(values[0].contains("/id")){
                 id_interlocutore = values[0].substring(4);
-                Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
-                toast.show();
+                Button termina = popUp.findViewById(R.id.termina);
+                termina.setEnabled(false);
+                termina.setBackground(getResources().getDrawable(R.drawable.background_stop_green));
+                termina.setText("Utente trovato");
+                /*Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
+                toast.show();*/
                 InitTask f = new InitTask();
                 f.execute("/getusername "+id_interlocutore,mTcpClient);
 
             }else if(values[0].contains("/interid")){
                 id_interlocutore = values[0].substring(9);
-                Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
-                toast.show();
+                Button termina = popUp.findViewById(R.id.termina);
+                termina.setEnabled(false);
+                termina.setBackground(getResources().getDrawable(R.drawable.background_stop_green));
+                termina.setText("Utente trovato");
+                /*Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
+                toast.show();*/
                 InitTask f = new InitTask();
                 f.execute("/getusername2 "+id_interlocutore,mTcpClient);
 
@@ -380,6 +359,11 @@ public class ChatActivity extends AppCompatActivity {
                 username_interlocutore = "0";
                 closeChat.callOnClick();
 
+            }else if(values[0].contains("/ricerca")){
+                Button termina = popUp.findViewById(R.id.termina);
+                termina.setEnabled(true);
+                termina.setBackground(getResources().getDrawable(R.drawable.background_stop));
+                termina.setText("Termina");
             }else if(!values[0].contains("/")){
                 ChatMessage mess = new ChatMessage();
                 mess.message = values[0];

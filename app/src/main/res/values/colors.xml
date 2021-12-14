@@ -9,5 +9,6 @@
     <color name='text_background'>#ECECEC</color>
     <color name='text_color_hint'>#9A9A9A</color>
     <color name='silver'>#C0C0C0</color>
-
+    <color name='red'>#FD5959</color>
+    <color name='green'>#7DFD59</color>
 </resources>
