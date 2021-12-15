@@ -72,7 +72,7 @@ public class SignInActivity extends AppCompatActivity {
                             if(response.isSuccessful() && response.body() != null){
                                 Utente user = new Utente();
                                 user.setUsername(response.body().get(0).getUsername());
-                                //user.setPassword(response.body().get(0).getPassword());
+                                user.setPassword(editPassword.getText().toString());
                                 user.setEmail(response.body().get(0).getEmail());
                                 user.setProfile_image(response.body().get(0).getProfile_image());
                                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);

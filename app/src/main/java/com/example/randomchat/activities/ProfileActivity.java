@@ -1,5 +1,7 @@
 package com.example.randomchat.activities;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.randomchat.MainActivity;
 import com.example.randomchat.R;
@@ -28,8 +31,8 @@ import java.util.concurrent.ExecutionException;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageprofile;
-    EditText usernameTxt , passwordTxt;
-    Button showPass;
+    EditText usernameTxt , passwordTxt , confermapassTxt;
+    Button showPass , confirmBtn , logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         usernameTxt = findViewById(R.id.textUsername);
-        usernameTxt.setHint(logged_user.getUsername());
+        usernameTxt.setText(logged_user.getUsername());
         passwordTxt = findViewById(R.id.textPassword);
         passwordTxt.setText(logged_user.getPassword());
         showPass = findViewById(R.id.showPass);
@@ -61,17 +64,63 @@ public class ProfileActivity extends AppCompatActivity {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_DOWN:
                         passwordTxt.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        passwordTxt.setSelection(passwordTxt.length());
                         //pressed
                         return true;
                     case MotionEvent.ACTION_UP:
                         passwordTxt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        passwordTxt.setSelection(passwordTxt.length());
                         //released
                         return true;
                 }
                 return false;
             }
         });
-
+        confermapassTxt = findViewById(R.id.textConfermaPassword);
+        passwordTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confermapassTxt.setVisibility(View.VISIBLE);
+            }
+        });
+        confirmBtn = findViewById(R.id.confirm_mod);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(passwordTxt.getText().toString().matches(logged_user.getPassword()) && usernameTxt.getText().toString().matches(logged_user.getUsername())){
+                    Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non modificate", LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    if(!passwordTxt.getText().toString().matches(logged_user.getPassword()) && !passwordTxt.getText().toString().matches(confermapassTxt.getText().toString())){
+                        Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non modificate", LENGTH_SHORT);
+                        toast.show();
+                    }else{
+                        if(passwordTxt.getText().toString().contains(" ") || passwordTxt.getText().toString().matches("") || usernameTxt.getText().toString().matches("") ||usernameTxt.getText().toString().contains(" ") ){
+                            Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non valide", LENGTH_SHORT);
+                            toast.show();
+                        }else{
+                            //SCRIPT DI CONFERMA MODIFICHE
+                            Utente user = new Utente();
+                            user.setUsername(usernameTxt.getText().toString());
+                            user.setPassword(passwordTxt.getText().toString());
+                            user.setEmail(logged_user.getEmail());
+                            user.setProfile_image(logged_user.getProfile_image());//da cambiare
+                            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                            intent.putExtra("utente",user);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            }
+        });
+        logOut = findViewById(R.id.logOut);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,SignInActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
