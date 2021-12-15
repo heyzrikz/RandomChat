@@ -8,7 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +28,8 @@ import java.util.concurrent.ExecutionException;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageprofile;
+    EditText usernameTxt , passwordTxt;
+    Button showPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Utente logged_user = intent.getParcelableExtra("utente");
         TextView username_text = (TextView) findViewById(R.id.textUsername);
-        username_text.setText(logged_user.getUsername());
         imageprofile = findViewById(R.id.imageProfile);
         RetrieveImageTask task = new RetrieveImageTask();
         try {
@@ -43,6 +49,30 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        usernameTxt = findViewById(R.id.textUsername);
+        usernameTxt.setHint(logged_user.getUsername());
+        passwordTxt = findViewById(R.id.textPassword);
+        passwordTxt.setText(logged_user.getPassword());
+        showPass = findViewById(R.id.showPass);
+        showPass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        passwordTxt.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        //pressed
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        passwordTxt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        //released
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
 
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 

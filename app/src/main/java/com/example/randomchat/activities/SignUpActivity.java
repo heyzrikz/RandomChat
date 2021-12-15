@@ -83,13 +83,24 @@ public class SignUpActivity extends AppCompatActivity {
                        toast.show();
                    }else{
                        if(password_txt.getText().toString().matches(conferma_password_txt.getText().toString())){
-                           Utente user = new Utente();
-                           user.setUsername(username_txt.getText().toString());
-                           user.setPassword(password_txt.getText().toString());
-                           user.setEmail(email_txt.getText().toString());
-                           user.setProfile_image(imageUrl);
-                           verifica_mail(user);
-
+                           if(password_txt.getText().toString().length() > 7) {
+                               if(!username_txt.getText().toString().contains("/")) {
+                                   Utente user = new Utente();
+                                   user.setUsername(username_txt.getText().toString());
+                                   user.setPassword(password_txt.getText().toString());
+                                   user.setEmail(email_txt.getText().toString());
+                                   user.setProfile_image(imageUrl);
+                                   verifica_mail(user);
+                               }else{
+                                   signUp_btn.setVisibility(View.VISIBLE);
+                                   Toast toast = Toast.makeText(SignUpActivity.this, "Attenzione carattere username non valido", Toast.LENGTH_LONG);
+                                   toast.show();
+                               }
+                           }else{
+                               signUp_btn.setVisibility(View.VISIBLE);
+                               Toast toast = Toast.makeText(SignUpActivity.this, "Attenzione la password deve contenere almeno 8 caratteri", Toast.LENGTH_LONG);
+                               toast.show();
+                           }
 
                        }else{
                            signUp_btn.setVisibility(View.VISIBLE);

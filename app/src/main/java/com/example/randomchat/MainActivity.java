@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) searchView.findViewById(id);
         textView.setTextColor(getResources().getColor(R.color.black));
         textView.setHintTextColor(getResources().getColor(R.color.text_color_hint));
+        init(logged_user,"a");
         //searchView.setIconified(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -210,5 +211,60 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+
+    public void init(Utente logged_user , String newText){
+        final ArrayList<Room> listOfRooms = new ArrayList<Room>();
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<Room>> call = apiInterface.cerca_stanza(newText.toLowerCase(Locale.ROOT));
+        call.enqueue(new Callback<List<Room>>() {
+            @Override
+            public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    for (Room i : response.body()) {
+                        listOfRooms.add(i);
+
+                    }
+                    roomList.clear();
+                    roomList.addAll(listOfRooms);
+                    if (roomList.isEmpty()) {
+                        Toast toast = Toast.makeText(MainActivity.this, "Nessun risultato trovato", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    adapter = new RoomAdapter(MainActivity.this, roomList);
+                    recycler.setAdapter(adapter);
+                    recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Room room_selezionata = new Room();
+                            room_selezionata.setNome(roomList.get(position).getNome());
+                            room_selezionata.setHost_name(roomList.get(position).getHost_name());
+                            room_selezionata.setDescription(roomList.get(position).getDescription());
+                            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                            intent.putExtra("room", room_selezionata);
+                                    /*Toast toast = Toast.makeText(MainActivity.this, room_selezionata.getNome(), Toast.LENGTH_LONG);
+                                    toast.show();*/
+                            intent.putExtra("utente", logged_user);
+                            startActivity(intent);
+                            //intent put extra nella sala d'attesa
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+
+                        }
+                    }));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Room>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+
+    }
+
+
 
 }

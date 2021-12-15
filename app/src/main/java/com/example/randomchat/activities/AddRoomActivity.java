@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class AddRoomActivity extends AppCompatActivity {
 
-    Button creaBtn;
+    Button creaBtn,clearBtn;
     EditText nomeRoom,descrizioneRoom;
     ApiInterface apiInterface;
 
@@ -65,6 +65,14 @@ public class AddRoomActivity extends AppCompatActivity {
 
 
                 }
+            }
+        });
+        clearBtn = findViewById(R.id.clearBtn);
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nomeRoom.getText().clear();
+                descrizioneRoom.getText().clear();
             }
         });
 
