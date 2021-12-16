@@ -1,13 +1,18 @@
 package com.example.randomchat.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +20,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +56,9 @@ public class ChatActivity extends AppCompatActivity {
     FrameLayout sendBtn;
     EditText inputMessage;
     TextView text_interlocutore;
+    ImageView iconSend;
     RecyclerView recyclerChat;
+    SpeechRecognizer speechRecognizer;
     private List<ChatMessage> chatMessages;
     private ChatAdapter chatAdapter;
     public Dialog popUp;
@@ -54,6 +66,7 @@ public class ChatActivity extends AppCompatActivity {
     private connectTask conctTask = null;
     String id_interlocutore = "0",foto_interlocutore = "0",username_interlocutore = "0";
     String username_loggato = "0";
+    int ascolta = 0;
 
 
 //SCRIPT PER AVERE FOTO PROFILO INTERLOCUTORE
@@ -86,8 +99,35 @@ public class ChatActivity extends AppCompatActivity {
         ShowPopup(room,logged_user,popUp);
         recyclerChat= findViewById(R.id.chatRecycler);
         inputMessage = findViewById(R.id.inputMessage);
-        infoBtn = findViewById(R.id.roomInfo);
+        iconSend = findViewById(R.id.iconSend);
         sendBtn = findViewById(R.id.frameSend);
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(ChatActivity.this);
+        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        inputMessage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                 if(s.length() != 0){
+                     iconSend.setImageDrawable(getDrawable(R.drawable.ic_send));
+
+                     speechRecognizer.stopListening();
+                     iconSend.setColorFilter(getResources().getColor(R.color.white));
+                 }else{
+                     iconSend.setImageDrawable(getDrawable(R.drawable.ic_mic));
+                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        infoBtn = findViewById(R.id.roomInfo);
+
 
 
         closeChat = findViewById(R.id.closeChat);
@@ -117,6 +157,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!inputMessage.getText().toString().matches("")){
+
                     int count = chatMessages.size();
                     ChatMessage chatMessage = new ChatMessage();
                     chatMessage.senderId = logged_user.getUsername();
@@ -136,7 +177,71 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+                }else{
+                    if(ContextCompat.checkSelfPermission(ChatActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(ChatActivity.this,new String[]{Manifest.permission.RECORD_AUDIO},1);
+                    }
+
+                        //Ascolta
+
+                        speechRecognizer.startListening(speechRecognizerIntent);
+                        iconSend.setColorFilter(getResources().getColor(R.color.green));
+
+
+
+
+
+
+
+
                 }
+            }
+        });
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> data = results.getStringArrayList(speechRecognizer.RESULTS_RECOGNITION);
+                inputMessage.setText(data.get(0));
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+
             }
         });
 
@@ -146,6 +251,20 @@ public class ChatActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+                Toast.makeText(ChatActivity.this, "Permesso negato", Toast.LENGTH_SHORT);
+            }
+        }
+    }
+
     class InitTask extends AsyncTask<Object,Void,String>{
         DataOutputStream dos;
         String message;

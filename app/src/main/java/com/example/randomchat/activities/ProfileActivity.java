@@ -77,10 +77,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         confermapassTxt = findViewById(R.id.textConfermaPassword);
-        passwordTxt.setOnClickListener(new View.OnClickListener() {
+        passwordTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 confermapassTxt.setVisibility(View.VISIBLE);
+                return false;
             }
         });
         confirmBtn = findViewById(R.id.confirm_mod);
