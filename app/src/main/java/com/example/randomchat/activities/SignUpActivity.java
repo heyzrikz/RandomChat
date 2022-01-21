@@ -82,6 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                        Toast toast = Toast.makeText(SignUpActivity.this, "Scegli una foto profilo", Toast.LENGTH_LONG);
                        toast.show();
                    }else{
+                       //gestione password
                        if(password_txt.getText().toString().matches(conferma_password_txt.getText().toString())){
                            if(password_txt.getText().toString().length() > 7) {
                                if(!username_txt.getText().toString().contains("/")) {

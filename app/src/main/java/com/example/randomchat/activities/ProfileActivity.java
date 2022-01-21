@@ -31,8 +31,9 @@ import java.util.concurrent.ExecutionException;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageprofile;
-    EditText usernameTxt , passwordTxt , confermapassTxt;
-    Button showPass , confirmBtn , logOut;
+    EditText  passwordTxt ;
+    TextView usernameTxt;
+    Button showPass , logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final Utente logged_user = intent.getParcelableExtra("utente");
-        TextView username_text = (TextView) findViewById(R.id.textUsername);
+        usernameTxt = (TextView) findViewById(R.id.textUsername);
         imageprofile = findViewById(R.id.imageProfile);
         RetrieveImageTask task = new RetrieveImageTask();
         try {
@@ -53,10 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        usernameTxt = findViewById(R.id.textUsername);
         usernameTxt.setText(logged_user.getUsername());
         passwordTxt = findViewById(R.id.textPassword);
         passwordTxt.setText(logged_user.getPassword());
+        passwordTxt.setFocusable(false);
         showPass = findViewById(R.id.showPass);
         showPass.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -74,44 +75,6 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
-            }
-        });
-        confermapassTxt = findViewById(R.id.textConfermaPassword);
-        passwordTxt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                confermapassTxt.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
-        confirmBtn = findViewById(R.id.confirm_mod);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(passwordTxt.getText().toString().matches(logged_user.getPassword()) && usernameTxt.getText().toString().matches(logged_user.getUsername())){
-                    Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non modificate", LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    if(!passwordTxt.getText().toString().matches(logged_user.getPassword()) && !passwordTxt.getText().toString().matches(confermapassTxt.getText().toString())){
-                        Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non modificate", LENGTH_SHORT);
-                        toast.show();
-                    }else{
-                        if(passwordTxt.getText().toString().contains(" ") || passwordTxt.getText().toString().matches("") || usernameTxt.getText().toString().matches("") ||usernameTxt.getText().toString().contains(" ") ){
-                            Toast toast = Toast.makeText(ProfileActivity.this, "Credenziali non valide", LENGTH_SHORT);
-                            toast.show();
-                        }else{
-                            //SCRIPT DI CONFERMA MODIFICHE
-                            Utente user = new Utente();
-                            user.setUsername(usernameTxt.getText().toString());
-                            user.setPassword(passwordTxt.getText().toString());
-                            user.setEmail(logged_user.getEmail());
-                            user.setProfile_image(logged_user.getProfile_image());//da cambiare
-                            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                            intent.putExtra("utente",user);
-                            startActivity(intent);
-                        }
-                    }
-                }
             }
         });
         logOut = findViewById(R.id.logOut);

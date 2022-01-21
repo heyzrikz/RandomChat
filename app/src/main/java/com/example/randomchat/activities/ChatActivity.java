@@ -66,11 +66,9 @@ public class ChatActivity extends AppCompatActivity {
     private connectTask conctTask = null;
     String id_interlocutore = "0",foto_interlocutore = "0",username_interlocutore = "0";
     String username_loggato = "0";
-    int ascolta = 0;
 
 
-//SCRIPT PER AVERE FOTO PROFILO INTERLOCUTORE
-//SETTA ADAPTER NEL ON CREATE DOPO showPopUp()
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,22 +78,15 @@ public class ChatActivity extends AppCompatActivity {
          final Utente logged_user = intent.getParcelableExtra("utente");
          username_loggato = logged_user.getUsername();
          final Room room = intent.getParcelableExtra("room");
-        ipAddress = "192.168.1.124";
+        ipAddress = "51.124.250.40";
         mTcpClient = null;
 
         //connect to the server
         conctTask = new connectTask();
         conctTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        //recyclerChat = findViewById(R.id.chatRecycler);
         chatMessages = new ArrayList<ChatMessage>();
         text_interlocutore = findViewById(R.id.username_inter);
         popUp = new Dialog(ChatActivity.this);
-        /*if(mTcpClient != null){
-            mTcpClient.sendMessage("Ciao server!");
-        }*/
-       /* BackgroundTask b = new BackgroundTask();
-        b.execute("/ping",mTcpClient);
-        b.cancel(true);*/
         ShowPopup(room,logged_user,popUp);
         recyclerChat= findViewById(R.id.chatRecycler);
         inputMessage = findViewById(R.id.inputMessage);
@@ -319,9 +310,11 @@ public class ChatActivity extends AppCompatActivity {
         InitTask c = new InitTask();
         InitTask d = new InitTask();
         InitTask e = new InitTask();
+        InitTask f = new InitTask();
 
         b.execute("/tema "+stanza.getNome(),mTcpClient);
         c.execute("/username "+utente_loggato.getUsername(),mTcpClient);
+        f.execute("/num",mTcpClient);
         e.execute("/foto "+utente_loggato.getProfile_image(),mTcpClient);
         d.execute("/cerca",mTcpClient);
 
@@ -368,13 +361,13 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         protected TCPClient doInBackground(String... message) {
-            //create a TCPClient object and
+            //crea TCPClient
             mTcpClient = new TCPClient(new TCPClient.OnMessageReceived() {
                 @Override
                 //here the messageReceived method is implemented
                 public void messageReceived(String message) {
                     try {
-                        //this method calls the onProgressUpdate
+                        //chiama OnProgressUpdate
                         publishProgress(message);
                         if (message != null) {
                             System.out.println("Return Message from Socket::::: >>>>> " + message);
@@ -384,7 +377,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
             }, ipAddress);
-            mTcpClient.run(); //da non richiamare nella chat
+            mTcpClient.run();
             if (mTcpClient != null) {
                 mTcpClient.sendMessage("Initial Message when connected with Socket Server");
             }
@@ -401,8 +394,6 @@ public class ChatActivity extends AppCompatActivity {
                 termina.setEnabled(false);
                 termina.setBackground(getResources().getDrawable(R.drawable.background_stop_green));
                 termina.setText("Utente trovato");
-                /*Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
-                toast.show();*/
                 InitTask f = new InitTask();
                 f.execute("/getusername "+id_interlocutore,mTcpClient);
 
@@ -412,10 +403,15 @@ public class ChatActivity extends AppCompatActivity {
                 termina.setEnabled(false);
                 termina.setBackground(getResources().getDrawable(R.drawable.background_stop_green));
                 termina.setText("Utente trovato");
-                /*Toast toast = Toast.makeText(ChatActivity.this, "id interlocutore: "+id_interlocutore, Toast.LENGTH_SHORT);
-                toast.show();*/
                 InitTask f = new InitTask();
                 f.execute("/getusername2 "+id_interlocutore,mTcpClient);
+
+            }
+            else if(values[0].contains("/num")){
+                TextView num = popUp.findViewById(R.id.numuser);
+                String n_user;
+                n_user = values[0].substring(5);
+                num.setText("utenti in attesa: "+n_user);
 
             }
 
@@ -483,15 +479,13 @@ public class ChatActivity extends AppCompatActivity {
                 termina.setEnabled(true);
                 termina.setBackground(getResources().getDrawable(R.drawable.background_stop));
                 termina.setText("Termina");
+
             }else if(!values[0].contains("/")){
                 ChatMessage mess = new ChatMessage();
                 mess.message = values[0];
                 mess.senderId = id_interlocutore;
                 chatMessages.add(mess);
-                /*Toast toast = Toast.makeText(ChatActivity.this, mess.message, Toast.LENGTH_SHORT);
-                toast.show();*/
                 chatAdapter.notifyDataSetChanged();
-                //System.out.printf("messaggio ricevuto: "+values[0]);
             }
         }
 

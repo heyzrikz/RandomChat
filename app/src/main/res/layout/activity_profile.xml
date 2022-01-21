@@ -47,7 +47,7 @@
             app:riv_oval="true"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/textUsername"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
@@ -81,6 +81,8 @@
                 android:inputType="textPassword"
                 android:paddingLeft="@dimen/_10sdp"
                 android:text="Password"
+                android:editable="false"
+                android:textIsSelectable="false"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/gray"
@@ -98,36 +100,8 @@
                 android:padding="@dimen/_5sdp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/textConfermaPassword"
-            android:visibility="invisible"
-            android:layout_width="@dimen/_200sdp"
-            android:layout_height="@dimen/_42sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/background_input"
-            android:fontFamily="@font/roboto_medium"
-            android:inputType="textPassword"
-            android:paddingLeft="@dimen/_10sdp"
-            android:hint="Conferma Password"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:textColor="@color/gray"
-            android:textColorHint="@color/gray"
-            android:textSize="@dimen/_19sdp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/confirm_mod"
-            android:layout_width="@dimen/_230sdp"
-            android:layout_height="@dimen/_37sdp"
-            android:background="@drawable/background_input"
-            android:backgroundTint="#CFCFCF"
-            android:text="Conferma modifiche"
-            android:fontFamily="@font/roboto_medium"
-            android:drawableStart="@drawable/ic_settings"
-            android:textColor="#565656"
-            android:drawablePadding="@dimen/_10sdp"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_123sdp"
-            />
+
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

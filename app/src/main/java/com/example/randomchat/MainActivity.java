@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
                                     room_selezionata.setDescription(roomList.get(position).getDescription());
                                     Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                                     intent.putExtra("room", room_selezionata);
-                                    /*Toast toast = Toast.makeText(MainActivity.this, room_selezionata.getNome(), Toast.LENGTH_LONG);
-                                    toast.show();*/
                                     intent.putExtra("utente", logged_user);
                                     startActivity(intent);
                                     //intent put extra nella sala d'attesa
